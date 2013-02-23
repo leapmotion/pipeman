@@ -11,6 +11,9 @@ struct SCONTROLBLOCK
 	{
 		struct
 		{
+			// Total number of bytes allocated, less the control block
+			long long llAllocationSize;
+
 			// The total size of individual buffers following on after the control header
 			long long llBufferSize;
 

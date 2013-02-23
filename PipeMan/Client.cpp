@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Client.h"
+#include "AutoLocker.h"
 #include "ControlBlock.h"
 
 using namespace PipeMan;
@@ -13,4 +14,8 @@ Client::Client(String^ name):
 long long Client::Available::get(void)
 {
 	return m_pControlBlock->llQueueLength;
+}
+
+void Client::Flip(void)
+{
 }

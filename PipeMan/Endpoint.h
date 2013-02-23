@@ -1,5 +1,4 @@
 #pragma once
-#include "AutoHandle.h"
 
 using namespace System;
 
@@ -31,10 +30,6 @@ namespace PipeMan
 		property long long BufferSize {long long get(void);}
 
 		/// <summary>
-		/// This is a pointer to the current buffer under review.
-		/// </summary>
-
-		/// <summary>
 		/// This is an instantaneous count of the number of buffers currently available.  If
 		/// this value is zero, the next call to Flip may block; if Flip blocks, this value
 		/// must be zero.
@@ -45,8 +40,11 @@ namespace PipeMan
 		// Name of this endpoint:
 		String^ m_name;
 
-		// Handle to the event and synch lock:
-		HANDLE m_hEvent;
+		// Handle to synchronization events.  The write and read events are used to signal
+		// that a flip operation has been successfully executed either by the writer, or the
+		// reader.
+		HANDLE m_hWriteEvent;
+		HANDLE m_hReadEvent;
 		HANDLE m_hLock;
 
 		// Handle to the section itself:
@@ -55,6 +53,9 @@ namespace PipeMan
 		// Pointer to the actual control block:
 		SCONTROLBLOCK* m_pControlBlock;
 
+		// Pointer to the first byte of the first buffer:
+		LPBYTE m_pFirstBuffer;
+
 	public:
 		/// <summary>
 		/// The flip method will advance to the next buffer.  For writers, this will obtain
@@ -62,6 +63,6 @@ namespace PipeMan
 		/// be processed.  In the event that there are no buffers currently available to be
 		/// returned, this method will BLOCK.
 		/// </summary>
-		void Flip(void);
+		virtual void Flip(void) = 0;
 	};
 }

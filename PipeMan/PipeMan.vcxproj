@@ -76,7 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AutoHandle.h" />
+    <ClInclude Include="AutoLocker.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="ControlBlock.h" />
     <ClInclude Include="Endpoint.h" />
@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="AutoHandle.cpp" />
+    <ClCompile Include="AutoLocker.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Endpoint.cpp" />
     <ClCompile Include="Server.cpp" />

@@ -13,5 +13,8 @@ namespace PipeMan
 		
 		// Inherited properties:
 		property long long  Available {virtual long long get(void) override;}
+
+	public:
+		void Flip(void) override;
 	};
 }

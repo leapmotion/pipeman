@@ -33,7 +33,7 @@
     <ClInclude Include="ControlBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AutoHandle.h">
+    <ClInclude Include="AutoLocker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,7 +53,7 @@
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AutoHandle.cpp">
+    <ClCompile Include="AutoLocker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
