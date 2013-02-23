@@ -19,6 +19,6 @@ namespace PipeMan
 		/// Makes the current endpoint point to a filled buffer from the writer.  This MUST be called
 		/// BEFORE the first attempt to read from the stream.
 		/// </summary>
-		bool Flip(int timeout) override;
+		virtual bool Flip(int timeout) override;
 	};
 }
