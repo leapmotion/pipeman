@@ -1,55 +1,51 @@
 #include "stdafx.h"
 #include "Endpoint.h"
-#include "ControlBlock.h"
+#include "../PipeManLib/ControlBlock.h"
+#include "../PipeManLib/Endpoint.h"
+#include <string>
 
+using namespace std;
 using namespace PipeMan;
 
-Endpoint::Endpoint(String^ name, long long desiredSize):
-	m_name(name)
+Endpoint::Endpoint(CEndpoint* pEndpoint):
+	m_pEndpoint(pEndpoint)
 {
-	// Now we generate the name of the various important structures:
-	{
-		pin_ptr<const wchar_t> ptr = PtrToStringChars(name + "-wevt");
-		m_hWriteEvent = CreateEventW(nullptr, false, false, ptr);
-	}
-	{
-		pin_ptr<const wchar_t> ptr = PtrToStringChars(name + "-revt");
-		m_hReadEvent = CreateEventW(nullptr, false, false, ptr);
-	}
-	{
-		pin_ptr<const wchar_t> ptr = PtrToStringChars(name + "-lock");
-		m_hLock = CreateMutex(nullptr, false, ptr);
-	}
-	{
-		pin_ptr<const wchar_t> ptr = PtrToStringChars(name + "-file");
-		if(desiredSize)
-		{
-			desiredSize += 256;
-			m_hSection = CreateFileMapping(nullptr, nullptr, PAGE_READWRITE, desiredSize >> 32, desiredSize & ~0L, ptr);
-		}
-		else
-			m_hSection = OpenFileMapping(GENERIC_ALL, false, ptr);
-
-		m_pControlBlock = (SCONTROLBLOCK*)MapViewOfFile(m_hSection, FILE_MAP_ALL_ACCESS, 0, 0, 0);
-		m_pFirstBuffer = (LPBYTE)(m_pControlBlock + 1);
-	}
 }
 
 Endpoint::~Endpoint(void)
 {
-	CloseHandle(m_hWriteEvent);
-	CloseHandle(m_hReadEvent);
-	CloseHandle(m_hLock);
-	CloseHandle(m_hSection);
-	UnmapViewOfFile(m_pControlBlock);
+}
+
+
+long long Endpoint::Available::get(void)
+{
+	return m_pEndpoint->GetAvailable();
+}
+
+String^ Endpoint::Name::get(void)
+{
+	return gcnew String(m_pEndpoint->GetName().c_str());
 }
 
 long long Endpoint::BufferCount::get(void)
 {
-	return m_pControlBlock->llBufferCount;
+	return m_pEndpoint->GetControlBlock().llBufferCount;
 }
 
 long long Endpoint::BufferSize::get(void)
 {
-	return m_pControlBlock->llBufferSize;
+	return m_pEndpoint->GetControlBlock().llBufferSize;
+}
+
+bool Endpoint::Flip(int timeout)
+{
+	if(!m_pEndpoint->Flip(timeout))
+	{
+		Link->Seek(0, SeekOrigin::Begin);
+		return false;
+	}
+
+	// Create the new memory stream:
+	Link = gcnew UnmanagedMemoryStream((unsigned char*)m_pEndpoint->Get(), BufferSize, BufferSize, FileAccess::Write);
+	return true;
 }

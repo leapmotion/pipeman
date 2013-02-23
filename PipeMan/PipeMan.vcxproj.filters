@@ -30,9 +30,6 @@
     <ClInclude Include="Server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ControlBlock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AutoLocker.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -4,20 +4,21 @@ using namespace System;
 using namespace System::IO;
 
 struct SCONTROLBLOCK;
+class CEndpoint;
 
 namespace PipeMan
 {
-	public ref class Endpoint abstract
+	public ref class Endpoint
 	{
 	public:
-		Endpoint(String^ name, long long desiredSize);
+		Endpoint(CEndpoint* pEndpoint);
 
 		~Endpoint(void);
 
 		/// <summary>
 		/// This is the name for the section
 		/// </summary>
-		property String^ Name { String^ get(void) {return m_name;}};
+		property String^ Name {String^ get(void);}
 		
 		/// <summary>
 		/// This is the number of buffers that are available for communication between
@@ -35,7 +36,7 @@ namespace PipeMan
 		/// this value is zero, the next call to Flip may block; if Flip blocks, this value
 		/// must be zero.
 		/// </summary>
-		property long long  Available {virtual long long  get(void) = 0;}
+		property long long  Available {long long  get(void);}
 
 		/// <summary>
 		/// This is the communications stream for this endpoint.
@@ -43,24 +44,7 @@ namespace PipeMan
 		UnmanagedMemoryStream^ Link;
 
 	protected:
-		// Name of this endpoint:
-		String^ m_name;
-
-		// Handle to synchronization events.  The write and read events are used to signal
-		// that a flip operation has been successfully executed either by the writer, or the
-		// reader.
-		HANDLE m_hWriteEvent;
-		HANDLE m_hReadEvent;
-		HANDLE m_hLock;
-
-		// Handle to the section itself:
-		HANDLE m_hSection;
-
-		// Pointer to the actual control block:
-		SCONTROLBLOCK* m_pControlBlock;
-
-		// Pointer to the first byte of the first buffer:
-		LPBYTE m_pFirstBuffer;
+		CEndpoint* m_pEndpoint;
 
 	public:
 		/// <summary>
@@ -81,6 +65,6 @@ namespace PipeMan
 		/// True if the flip operation succeeded, false otherwise.  If false is returned, the
 		/// endpoint's stream will be reset to the beginning.
 		/// </return>
-		virtual bool Flip(int timeout) = 0;
+		bool Flip(int timeout);
 	};
 }

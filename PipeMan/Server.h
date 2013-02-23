@@ -4,6 +4,8 @@
 using namespace System;
 using namespace System::IO;
 
+class CServer;
+
 namespace PipeMan
 {
 	public ref class Server:
@@ -16,17 +18,5 @@ namespace PipeMan
 		/// lock used to control access to the section.
 		/// </summary>
 		Server(String^ name, long long bufferCount, long long bufferSize);
-
-		~Server(void);
-
-		// Inherited properties:
-		property long long  Available {virtual long long  get(void) override;}
-
-	private:
-		// This is the current write offset, used when a buffer is written in multiple stages
-		long long m_writeOffset;
-
-	public:
-		virtual bool Flip(int timeout) override;
 	};
 }
