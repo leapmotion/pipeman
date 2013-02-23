@@ -5,9 +5,20 @@
 
 using namespace std;
 
-CClient::CClient(wstring&& name):
+CClient::CClient(wstring&& name, int timeout):
 	CEndpoint(forward<wstring>(name))
 {
+	if(WaitForSingleObject(m_hWriteEvent, timeout) != WAIT_OBJECT_0)
+		throw new exception("The server did not start before the timeout expired");
+
+	wstring subname = m_name + L"-file";
+
+	// Wait on the read event before we try to open the mapping:
+	m_hSection = OpenFileMapping(GENERIC_ALL, false, subname.c_str());
+
+	// Now we just map the whole space:
+	m_pControlBlock = (SCONTROLBLOCK*)MapViewOfFile(m_hSection, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+	m_pFirstBuffer = (LPBYTE)(m_pControlBlock + 1);
 }
 
 CClient::~CClient(void)
@@ -19,9 +30,9 @@ long long CClient::GetAvailable(void) const
 	return m_pControlBlock->llQueueLength;
 }
 
-void* CClient::Get(void) const
+unsigned char* CClient::Get(void) const
 {
-	return m_pFirstBuffer + m_pControlBlock->llReaderIndex * m_pControlBlock->llBufferSize;
+	return (unsigned char*)m_pFirstBuffer + m_pControlBlock->llReaderIndex * m_pControlBlock->llBufferSize;
 }
 
 bool CClient::Flip(int timeout)
@@ -37,5 +48,5 @@ bool CClient::Flip(int timeout)
 
 	// Signal that a read operation has just completed:
 	SetEvent(m_hReadEvent);
-	return true;
+	return !IsStale();
 }

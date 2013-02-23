@@ -5,13 +5,13 @@ class CClient:
 	public CEndpoint
 {
 public:
-	CClient(wstring&& name);
+	CClient(wstring&& name, int timeout = INFINITE);
 	~CClient(void);
 
 private:
 
 public:
-	void* CClient::Get(void) const;
+	unsigned char* CClient::Get(void) const;
 	long long GetAvailable(void) const;
 	bool Flip(int timeout = INFINITE);
 };

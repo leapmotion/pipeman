@@ -14,8 +14,8 @@ Endpoint::Endpoint(CEndpoint* pEndpoint):
 
 Endpoint::~Endpoint(void)
 {
+	delete m_pEndpoint;
 }
-
 
 long long Endpoint::Available::get(void)
 {
@@ -46,6 +46,6 @@ bool Endpoint::Flip(int timeout)
 	}
 
 	// Create the new memory stream:
-	Link = gcnew UnmanagedMemoryStream((unsigned char*)m_pEndpoint->Get(), BufferSize, BufferSize, FileAccess::Write);
+	Link = gcnew UnmanagedMemoryStream(m_pEndpoint->Get(), BufferSize, BufferSize, FileAccess::Write);
 	return true;
 }

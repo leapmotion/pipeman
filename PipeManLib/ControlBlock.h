@@ -25,6 +25,9 @@ struct SCONTROLBLOCK
 			
 			// This is the number of buffers currently in the queue:
 			long long llQueueLength;
+
+			// Set to true if this channel is stale
+			bool bStale;
 		};
 
 		// Ensure that we've got the correct length:

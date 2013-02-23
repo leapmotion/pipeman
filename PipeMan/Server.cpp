@@ -17,4 +17,6 @@ CServer* MakeServer(String^ name, long long bufferCount, long long bufferSize)
 Server::Server(String^ name, long long bufferCount, long long bufferSize):
 	Endpoint(MakeServer(name, bufferCount, bufferSize))
 {
+	// Set up our buffer:
+	Link = gcnew UnmanagedMemoryStream(m_pEndpoint->Get(), BufferSize, BufferSize, FileAccess::Write);
 }

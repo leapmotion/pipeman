@@ -16,5 +16,6 @@ int main(array<System::String ^> ^args)
 		rServer->Flip(100);
 	}
 
+	delete rServer;
     return 0;
 }

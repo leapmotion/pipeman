@@ -11,8 +11,8 @@ struct SCONTROLBLOCK;
 class CEndpoint
 {
 public:
-	CEndpoint(wstring&& name, long long desiredSize = 0);
-	~CEndpoint(void);
+	CEndpoint(wstring&& name);
+	virtual ~CEndpoint(void);
 
 protected:
 	// Name of this endpoint:
@@ -39,17 +39,18 @@ public:
 	virtual long long GetAvailable(void) const = 0;
 	const wstring& GetName(void) const {return m_name;}
 	const SCONTROLBLOCK& GetControlBlock(void) const {return *m_pControlBlock;}
+	bool IsStale(void) const;
 
 	/// <summary>
 	/// Obtains a pointer to the current buffer
 	/// </summary>
-	virtual void* Get(void) const = 0;
+	virtual unsigned char* Get(void) const = 0;
 
 	/// <summary>
 	/// Flip routine.  Blocks until another buffer becomes available, or the timeout expires.
 	/// </summary>
 	/// <returns>
-	/// False if the timeout expired, true otherwise.
+	/// False if the timeout expired, or if the server has disappeared.  True otherwise.
 	/// </returns>
 	virtual bool Flip(int timeout) = 0;
 };

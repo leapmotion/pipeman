@@ -16,7 +16,7 @@ private:
 	long long m_writeOffset;
 
 public:
-	virtual void* Get(void) const;
+	virtual unsigned char* Get(void) const;
 	virtual long long GetAvailable(void) const;
 
 	bool Flip(int timeout = INFINITE);
