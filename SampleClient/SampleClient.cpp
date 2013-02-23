@@ -10,12 +10,21 @@ int main(array<System::String ^> ^args)
 
 	for(int i = 0; i < 12; i++)
 	{
-		BinaryWriter^ writer = gcnew BinaryWriter(rServer->Sink);
+		BinaryWriter^ writer = gcnew BinaryWriter(rServer->Link);
 		writer->Write("Hello world!");
-		rServer->Flip();
+		if(!rServer->Flip(100))
+			break;
 	}
 
 	Client^ rClient = gcnew Client("Testing");
+
+	array<Byte>^ buf = gcnew array<Byte>(100);
+	while(rClient->Flip(0))
+	{
+		BinaryReader^ reader = gcnew BinaryReader(rClient->Link);
+		String^ rStr = reader->ReadString();
+		System::Console::WriteLine(rStr);
+	}
 
     return 0;
 }

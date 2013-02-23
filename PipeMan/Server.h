@@ -19,12 +19,6 @@ namespace PipeMan
 
 		~Server(void);
 
-		/// <summary>
-		/// This is the output stream used to send data to the downstream client.  This stream
-		/// should not be cached, as it will be invalidated when Flip is called.
-		/// </summary>
-		UnmanagedMemoryStream^ Sink;
-
 		// Inherited properties:
 		property long long  Available {virtual long long  get(void) override;}
 
@@ -33,6 +27,6 @@ namespace PipeMan
 		long long m_writeOffset;
 
 	public:
-		virtual void Flip(void) override;
+		virtual bool Flip(int timeout) override;
 	};
 }

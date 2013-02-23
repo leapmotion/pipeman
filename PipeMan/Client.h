@@ -12,9 +12,13 @@ namespace PipeMan
 		Client(String^ name);
 		
 		// Inherited properties:
-		property long long  Available {virtual long long get(void) override;}
+		property long long Available {virtual long long get(void) override;}
 
 	public:
-		void Flip(void) override;
+		/// <summary>
+		/// Makes the current endpoint point to a filled buffer from the writer.  This MUST be called
+		/// BEFORE the first attempt to read from the stream.
+		/// </summary>
+		bool Flip(int timeout) override;
 	};
 }

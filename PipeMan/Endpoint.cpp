@@ -28,7 +28,7 @@ Endpoint::Endpoint(String^ name, long long desiredSize):
 			m_hSection = CreateFileMapping(nullptr, nullptr, PAGE_READWRITE, desiredSize >> 32, desiredSize & ~0L, ptr);
 		}
 		else
-			m_hSection = OpenFileMapping(PAGE_READWRITE, false, ptr);
+			m_hSection = OpenFileMapping(GENERIC_ALL, false, ptr);
 
 		m_pControlBlock = (SCONTROLBLOCK*)MapViewOfFile(m_hSection, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 		m_pFirstBuffer = (LPBYTE)(m_pControlBlock + 1);

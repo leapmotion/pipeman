@@ -1,6 +1,7 @@
 #pragma once
 
 using namespace System;
+using namespace System::IO;
 
 struct SCONTROLBLOCK;
 
@@ -36,6 +37,11 @@ namespace PipeMan
 		/// </summary>
 		property long long  Available {virtual long long  get(void) = 0;}
 
+		/// <summary>
+		/// This is the communications stream for this endpoint.
+		/// </summary>
+		UnmanagedMemoryStream^ Link;
+
 	protected:
 		// Name of this endpoint:
 		String^ m_name;
@@ -58,11 +64,23 @@ namespace PipeMan
 
 	public:
 		/// <summary>
+		/// Identical to Flip with an infinite timeout
+		/// </summary>
+		bool Flip(void)
+		{
+			return Flip(INFINITE);
+		}
+
+		/// <summary>
 		/// The flip method will advance to the next buffer.  For writers, this will obtain
 		/// an empty buffer to be written to; for readers, it will obtain a filled buffer to
 		/// be processed.  In the event that there are no buffers currently available to be
-		/// returned, this method will BLOCK.
+		/// returned, this method will BLOCK until the timeout elapses.
 		/// </summary>
-		virtual void Flip(void) = 0;
+		/// <return>
+		/// True if the flip operation succeeded, false otherwise.  If false is returned, the
+		/// endpoint's stream will be reset to the beginning.
+		/// </return>
+		virtual bool Flip(int timeout) = 0;
 	};
 }
