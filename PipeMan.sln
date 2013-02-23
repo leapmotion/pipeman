@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PipeMan", "PipeMan\PipeMan.vcxproj", "{DA88E956-819C-4857-B78F-CCC5C90AB5B0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleClient", "SampleClient\SampleClient.vcxproj", "{25F1B41F-AD28-47B1-A1C0-333F419476F6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleServer", "SampleServer\SampleServer.vcxproj", "{270CB3C1-4FD2-4F54-B33D-B5CE96D62820}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA88E956-819C-4857-B78F-CCC5C90AB5B0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DA88E956-819C-4857-B78F-CCC5C90AB5B0}.Debug|Win32.Build.0 = Debug|Win32
+		{DA88E956-819C-4857-B78F-CCC5C90AB5B0}.Release|Win32.ActiveCfg = Release|Win32
+		{DA88E956-819C-4857-B78F-CCC5C90AB5B0}.Release|Win32.Build.0 = Release|Win32
+		{25F1B41F-AD28-47B1-A1C0-333F419476F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{25F1B41F-AD28-47B1-A1C0-333F419476F6}.Debug|Win32.Build.0 = Debug|Win32
+		{25F1B41F-AD28-47B1-A1C0-333F419476F6}.Release|Win32.ActiveCfg = Release|Win32
+		{25F1B41F-AD28-47B1-A1C0-333F419476F6}.Release|Win32.Build.0 = Release|Win32
+		{270CB3C1-4FD2-4F54-B33D-B5CE96D62820}.Debug|Win32.ActiveCfg = Debug|Win32
+		{270CB3C1-4FD2-4F54-B33D-B5CE96D62820}.Debug|Win32.Build.0 = Debug|Win32
+		{270CB3C1-4FD2-4F54-B33D-B5CE96D62820}.Release|Win32.ActiveCfg = Release|Win32
+		{270CB3C1-4FD2-4F54-B33D-B5CE96D62820}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
