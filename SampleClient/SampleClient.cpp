@@ -6,7 +6,8 @@ using namespace PipeMan;
 
 int main(array<System::String ^> ^args)
 {
-	Server^ rServer = gcnew Server("Testing", 10, 0x1000);
+	String^ ChannelName = "Testing";
+	Server^ rServer = gcnew Server(ChannelName, 10, 0x1000);
 
 	for(int i = 0; i < 12; i++)
 	{
@@ -16,7 +17,7 @@ int main(array<System::String ^> ^args)
 			break;
 	}
 
-	Client^ rClient = gcnew Client("Testing");
+	Client^ rClient = gcnew Client(ChannelName);
 
 	array<Byte>^ buf = gcnew array<Byte>(100);
 	while(rClient->Flip(0))
