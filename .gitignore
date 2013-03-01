@@ -3,3 +3,8 @@ PipeMan.opensdf
 PipeMan.sdf
 PipeMan.v11.suo
 Debug
+PipeMan/Release/
+PipeManC/Release/*
+*.vcxproj.user
+PipeManLib/Release/*
+Release/

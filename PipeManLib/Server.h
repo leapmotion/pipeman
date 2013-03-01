@@ -4,11 +4,11 @@
 
 using namespace std;
 
-class CServer:
+class EXPORT_CLASS CServer:
 	public CEndpoint
 {
 public:
-	CServer(wstring&& name, long long bufferCount, long long bufferSize);
+	CServer(wstring& name, long long bufferCount, long long bufferSize);
 	~CServer(void);
 
 private:

@@ -9,6 +9,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleServer", "SampleServe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PipeManLib", "PipeManLib\PipeManLib.vcxproj", "{DFB75568-E06F-4B28-983F-A898C9E2051F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PipeManC", "PipeManC\PipeManC.vcxproj", "{F1FE7A66-8C44-4150-84B6-EEAF0C4C7EF0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DFB75568-E06F-4B28-983F-A898C9E2051F} = {DFB75568-E06F-4B28-983F-A898C9E2051F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

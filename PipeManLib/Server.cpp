@@ -3,7 +3,7 @@
 #include "ControlBlock.h"
 #include <utility>
 
-CServer::CServer(wstring&& name, long long bufferCount, long long bufferSize):
+CServer::CServer(wstring& name, long long bufferCount, long long bufferSize):
 	CEndpoint(std::forward<wstring>(name)),
 	m_writeOffset(-bufferSize)
 {
