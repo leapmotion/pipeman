@@ -7,11 +7,9 @@
 
 #define EXPORT_API __declspec(dllexport)
 extern "C" {
-
-  EXPORT_API void* Server_Create(const wchar_t* name, long long buffercount, long long bufferSize);
-  EXPORT_API void Server_Destroy(void* handle);
-  EXPORT_API void Server_SendData(void* handle, void* data, int bytes);
-  EXPORT_API bool Server_Flip(void* handle, int timeout);
-  EXPORT_API bool Server_Flip_NoTimeout(void* handle);
-
+	EXPORT_API void* Server_Create(const wchar_t* name, long long buffercount, long long bufferSize);
+	EXPORT_API void Server_Destroy(void* handle);
+	EXPORT_API void Server_SendData(void* handle, void* data, int bytes);
+	EXPORT_API bool Server_Flip(void* handle, int timeout);
+	EXPORT_API bool Server_Flip_NoTimeout(void* handle);
 }

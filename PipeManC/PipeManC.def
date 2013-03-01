@@ -1,0 +1,7 @@
+LIBRARY
+EXPORTS
+	Server_Create
+	Server_Destroy
+	Server_SendData
+	Server_Flip
+	Server_Flip_NoTimeout

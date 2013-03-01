@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class EXPORT_CLASS CServer:
+class CServer:
 	public CEndpoint
 {
 public:
