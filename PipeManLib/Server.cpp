@@ -48,6 +48,11 @@ long long CServer::GetAvailable(void) const
 	return m_pControlBlock->llBufferCount - m_pControlBlock->llQueueLength;
 }
 
+long long CServer::GetBufferSize(void) const
+{
+  return m_pControlBlock->llBufferSize;
+}
+
 unsigned char* CServer::Get(void) const
 {
 	return (unsigned char*)m_pFirstBuffer + m_writeOffset;

@@ -18,7 +18,12 @@ void Server_SendData(int handle, void* data, int bytes)
 	CServer* server = (CServer*)handle;
 	unsigned char* outB = server->Get();
 
-	memcpy_s(outB, (rsize_t)server->GetAvailable(), data, bytes);
+  if( server->GetAvailable() > 0 ) {
+	  memcpy_s(outB, (rsize_t)server->GetBufferSize(), data, bytes);
+  }
+  else {
+    printf("Failed to write, no buffer available\n");
+  }
 }
 
 bool Server_Flip(int handle, int timeout)

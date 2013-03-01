@@ -18,6 +18,7 @@ private:
 public:
 	virtual unsigned char* Get(void) const;
 	virtual long long GetAvailable(void) const;
+  virtual long long GetBufferSize(void) const;
 
 	bool Flip(int timeout = INFINITE);
 };
