@@ -5,7 +5,7 @@ class CClient:
 	public CEndpoint
 {
 public:
-	CClient(wstring&& name, int timeout = INFINITE);
+	CClient(wstring& name, int timeout = INFINITE);
 	~CClient(void);
 
 private:

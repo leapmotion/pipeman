@@ -5,7 +5,7 @@
 
 using namespace std;
 
-CClient::CClient(wstring&& name, int timeout):
+CClient::CClient(wstring& name, int timeout):
 	CEndpoint(forward<wstring>(name))
 {
 	if(WaitForSingleObject(m_hWriteEvent, timeout) != WAIT_OBJECT_0)
