@@ -19,8 +19,8 @@ void Server_SendData(int handle, void* data, int bytes)
 	unsigned char* outB = server->Get();
 
   if( server->GetAvailable() > 0 ) {
-    *outB = static_cast<unsigned char>(bytes);
-    outB++; //write the size as the first byte of the buffer.
+    *reinterpret_cast<unsigned int*>(outB) = bytes;
+    outB+=(sizeof(int)/sizeof(char)); //write the size as the first byte of the buffer.
 	  memcpy_s(outB, (rsize_t)server->GetBufferSize(), data, bytes);
   }
   else {
