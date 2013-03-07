@@ -21,7 +21,7 @@ void Server_SendData(int handle, const void* data, size_t bytes)
 	if(server->GetAvailable() > 0)
 	{
 		// Buffer size is the first dword:
-		*pBuf = bytes;
+		*pBuf = (int)bytes;
 		memcpy_s(
 			pBuf + 1,
 			(rsize_t)server->GetBufferSize() - sizeof(*pBuf),

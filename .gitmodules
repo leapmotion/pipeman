@@ -1,0 +1,3 @@
+[submodule "googletest"]
+	path = googletest
+	url = ssh://ocuserv2/var/git/googletest
