@@ -13,19 +13,24 @@ void Server_Destroy(int handle)
 	delete server;
 }
 
-void Server_SendData(int handle, void* data, int bytes)
+void Server_SendData(int handle, const void* data, size_t bytes)
 {
 	CServer* server = (CServer*)handle;
-	unsigned char* outB = server->Get();
+	int* pBuf = (int*)server->Get();
 
-  if( server->GetAvailable() > 0 ) {
-    *reinterpret_cast<unsigned int*>(outB) = bytes;
-    outB+=(sizeof(int)/sizeof(char)); //write the size as the first byte of the buffer.
-	  memcpy_s(outB, (rsize_t)server->GetBufferSize(), data, bytes);
-  }
-  else {
-    printf("Failed to write, no buffer available\n");
-  }
+	if(server->GetAvailable() > 0)
+	{
+		// Buffer size is the first dword:
+		*pBuf = bytes;
+		memcpy_s(
+			pBuf + 1,
+			(rsize_t)server->GetBufferSize() - sizeof(*pBuf),
+			data,
+			bytes
+		);
+	}
+	else
+		printf("Failed to write, no buffer available\n");
 }
 
 bool Server_Flip(int handle, int timeout)
