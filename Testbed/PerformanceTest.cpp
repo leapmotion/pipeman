@@ -30,6 +30,8 @@ TEST_F(PerformanceTest, VerifyBigBufferSpeed)
 	static const int minDatarate = 100;
 
 	// Total size of each buffer, and the number of buffers total we will move
+	// The size is immaterial except for certain cache effects that we would like to avoid.
+	// We're testing the total round-trip response time, not the speed of main memory.
 	static const size_t bufSize = 0x1000 * 0x1000;
 	static const size_t moveCount = 1000;
 
@@ -43,7 +45,7 @@ TEST_F(PerformanceTest, VerifyBigBufferSpeed)
 		barrier(startLock);
 
 		// Now we pull out samples until there aren't anymore:
-		while(client.Flip());
+		while(client.Flip() && !client.IsStale());
 	});
 	thread server([&startLock] () {
 		CServerNative server(TEST_NAME, 16, bufSize);
@@ -54,11 +56,6 @@ TEST_F(PerformanceTest, VerifyBigBufferSpeed)
 		// Attempt to send the number of requested buffers:
 		for(size_t i = moveCount; i--;)
 		{
-			// Simulate a fill operation:
-			char* pBuf = (char*)server.Get();
-			for(size_t j = 0; j < bufSize; j++)
-				pBuf[j] = (char)j;
-
 			// Flip:
 			bool ok = server.Flip(50);
 			EXPECT_TRUE(ok) << "The server generated samples faster than the client could dispatch them";
@@ -77,7 +74,7 @@ TEST_F(PerformanceTest, VerifyBigBufferSpeed)
 
 	// Compute the datarate, in mbps:
 	int duration = clock() - startTime;
-	int datarate = (bufSize * moveCount) / (1024 * 1024 * 1024);
+	int datarate = 1000 * ((bufSize * moveCount) / (1024 * 1024 * 1024)) / duration;
 
 	// Verify we transferred enough data in time:
 	EXPECT_LT(minDatarate, datarate) << "The processing loop could only process samples at " << datarate << " MBPS";
