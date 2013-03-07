@@ -26,14 +26,14 @@ TEST_F(PerformanceTest, VerifyBigBufferSpeed)
 	mutex startLock;
 	startLock.lock();
 
-	// This is the data rate we are targeting, in MBPS
-	static const int minDatarate = 100;
+	// This is the flip rate we are targeting, in Hz
+	static const double minFreq = 10000;
 
 	// Total size of each buffer, and the number of buffers total we will move
 	// The size is immaterial except for certain cache effects that we would like to avoid.
 	// We're testing the total round-trip response time, not the speed of main memory.
 	static const size_t bufSize = 0x1000 * 0x1000;
-	static const size_t moveCount = 1000;
+	static const size_t moveCount = 100000;
 
 
 
@@ -72,10 +72,10 @@ TEST_F(PerformanceTest, VerifyBigBufferSpeed)
 	client.join();
 	server.join();
 
-	// Compute the datarate, in mbps:
-	int duration = clock() - startTime;
-	int datarate = 1000 * ((bufSize * moveCount) / (1024 * 1024 * 1024)) / duration;
+	// Compute the flip rate, in Hz:
+	size_t dt = clock() - startTime;
+	double freq = (1000.0 / dt) * moveCount;
 
 	// Verify we transferred enough data in time:
-	EXPECT_LT(minDatarate, datarate) << "The processing loop could only process samples at " << datarate << " MBPS";
+	EXPECT_GT(freq, minFreq) << "The processing loop could only process samples at " << setprecision(0) << freq << "Hz";
 }
