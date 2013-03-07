@@ -16,3 +16,11 @@ public:
 	bool Flip(int timeout = INFINITE);
 };
 
+class CClientNative:
+	public CClient
+{
+public:
+	CClientNative(const wchar_t* pwszName, int timeout = INFINITE):
+		CClient(wstring(pwszName), timeout)
+	{}
+};

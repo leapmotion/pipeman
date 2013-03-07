@@ -23,3 +23,12 @@ public:
 	bool Flip(int timeout = INFINITE);
 };
 
+class CServerNative:
+	public CServer
+{
+public:
+	CServerNative(const wchar_t* pwszName, long long bufferCount, long long bufferSize):
+		CServer(wstring(pwszName), bufferCount, bufferSize)
+	{
+	}
+};

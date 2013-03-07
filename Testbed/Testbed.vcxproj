@@ -169,6 +169,11 @@
     </ClCompile>
     <ClCompile Include="Testbed.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PipeManLib\PipeManLib.vcxproj">
+      <Project>{dfb75568-e06f-4b28-983f-a898c9e2051f}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

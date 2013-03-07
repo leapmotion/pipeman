@@ -7,4 +7,6 @@
 #include <gtest/gtest.h>
 #include <Windows.h>
 
+#define TEST_NAME L"TestName"
+
 
